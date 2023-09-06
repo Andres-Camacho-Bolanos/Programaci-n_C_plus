@@ -1,2 +1,2 @@
-# Programaci-n_C_plus
+# Programacion_C_++
 Repositorio para programas en C++.
