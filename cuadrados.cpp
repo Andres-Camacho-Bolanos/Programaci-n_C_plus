@@ -31,6 +31,14 @@ double distancia(Punto p1, Punto p2) {
     return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
 
+// Función para calcular la pendiente entre dos puntos.
+double pendiente(Punto p1, Punto p2) {
+    if (p2.x - p1.x == 0) {
+        return INFINITY; // Pendiente infinita para líneas verticales.
+    }
+    return (p2.y - p1.y) / (p2.x - p1.x);
+}
+
 // Función para determinar si un conjunto de 4 puntos forma un cuadrado.
 bool esCuadrado(Punto puntos[4]) {
     double distancias[6];
@@ -45,6 +53,13 @@ bool esCuadrado(Punto puntos[4]) {
     distancias[4] = distancia(puntos[0], puntos[2]);
     distancias[5] = distancia(puntos[1], puntos[3]);
 
+    // Calcula las pendientes de los lados opuestos.
+    double pendientes[4];
+    pendientes[0] = pendiente(puntos[0], puntos[1]);
+    pendientes[1] = pendiente(puntos[1], puntos[2]);
+    pendientes[2] = pendiente(puntos[2], puntos[3]);
+    pendientes[3] = pendiente(puntos[3], puntos[0]);
+
     // Ordena las distancias para compararlas.
     sort(distancias, distancias + 6);
 
@@ -55,6 +70,13 @@ bool esCuadrado(Punto puntos[4]) {
         distancias[4] == distancias[5]) {
         cout << "Las distancias son iguales: " << distancias[0] << endl;
         cout << "Longitud de la diagonal: " << distancias[4] << endl;
+        
+        // Imprime las pendientes de los lados opuestos.
+        cout << "Pendientes de los lados opuestos:" << endl;
+        for (int i = 0; i < 4; i++) {
+            cout << "Lado " << i + 1 << ": " << pendientes[i] << endl;
+        }
+
         return true;
     }
 
@@ -75,6 +97,13 @@ bool esRectangulo(Punto puntos[4]) {
     distancias[4] = distancia(puntos[0], puntos[2]);
     distancias[5] = distancia(puntos[1], puntos[3]);
 
+    // Calcula las pendientes de los lados opuestos.
+    double pendientes[4];
+    pendientes[0] = pendiente(puntos[0], puntos[1]);
+    pendientes[1] = pendiente(puntos[1], puntos[2]);
+    pendientes[2] = pendiente(puntos[2], puntos[3]);
+    pendientes[3] = pendiente(puntos[3], puntos[0]);
+
     // Ordena las distancias para compararlas.
     sort(distancias, distancias + 6);
 
@@ -83,6 +112,13 @@ bool esRectangulo(Punto puntos[4]) {
         distancias[2] == distancias[3]) {
         cout << "Las distancias son iguales: " << distancias[0] << endl;
         cout << "Longitud de la diagonal: " << distancias[4] << endl;
+        
+        // Imprime las pendientes de los lados opuestos.
+        cout << "Pendientes de los lados opuestos:" << endl;
+        for (int i = 0; i < 4; i++) {
+            cout << "Lado " << i + 1 << ": " << pendientes[i] << endl;
+        }
+
         return true;
     }
 
@@ -114,6 +150,14 @@ int main() {
     } else {
         cout << "Los puntos no forman un cuadrado ni un rectángulo." << endl;
         cout << "La figura es un cuadrángulo." << endl;
+        
+        // Imprime las pendientes de los lados opuestos.
+        cout << "Pendientes de los lados opuestos:" << endl;
+        for (int i = 0; i < 4; i++) {
+            int j = (i + 2) % 4; // Índice del punto opuesto.
+            cout << "Lado " << i + 1 << ": " << pendiente(puntos[i], puntos[j]) << endl;
+        
+    }
     }
 
     return 0;
